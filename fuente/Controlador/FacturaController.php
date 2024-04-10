@@ -1,21 +1,23 @@
 <?php
 
-class FacturaController{
-    public function makeFactura(){
+class FacturaController
+{
+    public function makeFactura()
+    {
         require_once __DIR__ . '/../Repositorio/FacturaRepositorio.php';
-        try{
+        try {
             (new FacturaRepositorio())->addFactura(
                 $_SESSION['idPedido'],
                 $_SESSION['cliente']['eCorreo'],
                 date('Y-m-d'),
-                $_SESSION['total']                
+                $_SESSION['total']
             );
-      unset($_SESSION['total']);
-      unset($_SESSION['idPedido']);
-      unset($_SESSION['codArticulo']);
-      unset($_SESSION['pv']);
-      header('Locaton: index.php');
-        } catch(\PDOException $ex){
+            unset($_SESSION['total']);
+            unset($_SESSION['idPedido']);
+            unset($_SESSION['codArticulo']);
+            unset($_SESSION['pv']);
+            header('Locaton: index.php?ctl=inicio');
+        } catch (\PDOException $ex) {
             echo $ex->getMessage();
         }
     }
